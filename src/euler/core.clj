@@ -21,12 +21,24 @@
        (apply +)))
 
 ;; Problem 3
+(defn eul3
+  [n]
+  (loop [n n
+         d 2
+         factors []]
+    (if (< n 2)
+      factors
+      (if (= 0 (rem n d))
+        ; if n can still divisible by 2
+        (recur (/ n d) d (conj factors d))
+        (recur n (inc d) factors)))))
+
 ;; Problem 4
 (defn reverse-num
   [n]
   (Integer. (apply str (reverse (str n)))))
 
-(defn eul4
+(defn isPalindrome
   []
   (for [a (range 100 1001)
         b (range a 1001)]
@@ -34,12 +46,12 @@
 
 (defn eul4a
   []
-  (->> (eul4)
+  (->> (isPalindrome)
        (sort)
-       (drop-while nil?)
        (last)))
 
 ;; Problem 5
+
 ;; Problem 6
 (defn square
   [n]
@@ -60,3 +72,35 @@
 (defn eul6
   [n]
   (- (square-of-sum n) (sum-of-squares n)))
+
+;; Problem 7
+(defn isPrime
+  [n]
+  (if (< n 2)
+    false
+    (let [d (range 2 (inc (int (Math/sqrt n))))
+          rem (map #(mod n %) d)]
+      (if (not-any? #(= % 0) rem)
+        true
+        false))))
+
+(defn eul7
+  [n]
+  (last (take n (filter isPrime (range)))))
+;; Problem 8
+;; Problem 9
+
+(defn eul9
+  []
+  (for [a (range 1 1000)
+        b (range a 1000)
+        c (range b 1000)
+        :when (and
+                (= (+ (square a) (square b)) (square c))
+                (= (+ a b c) 1000))]
+    (* a b c)))
+
+;; Problem 10
+(defn eul10
+  [n]
+  (reduce + (take-while #(< % n) (filter isPrime (range)))))
