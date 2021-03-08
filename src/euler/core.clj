@@ -1,6 +1,17 @@
 (ns euler.core)
 
-;; Problem 1
+;; Prime number
+(defn isPrime
+  [n]
+  (if (< n 2)
+    false
+    (let [d (range 2 (inc (int (Math/sqrt n))))
+          rem (map #(mod n %) d)]
+      (if (not-any? #(= % 0) rem)
+        true
+        false))))
+
+;; Problem 1md
 (defn eul1
   [n]
   (-  (+ (apply + (range 0 n 3))
@@ -51,6 +62,11 @@
        (last)))
 
 ;; Problem 5
+(defn eul5
+  [n]
+  (let [a []
+        b (range 1 (inc n))]))
+
 
 ;; Problem 6
 (defn square
@@ -74,22 +90,11 @@
   (- (square-of-sum n) (sum-of-squares n)))
 
 ;; Problem 7
-(defn isPrime
-  [n]
-  (if (< n 2)
-    false
-    (let [d (range 2 (inc (int (Math/sqrt n))))
-          rem (map #(mod n %) d)]
-      (if (not-any? #(= % 0) rem)
-        true
-        false))))
-
 (defn eul7
   [n]
   (last (take n (filter isPrime (range)))))
 ;; Problem 8
 ;; Problem 9
-
 (defn eul9
   []
   (for [a (range 1 1000)
